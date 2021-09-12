@@ -168,7 +168,12 @@ function ManagerList(props: IManagerListProps) {
       <thead>
         <tr>
           <th>{t('Manager')}</th>
-          <th>{t('Commandline')}</th>
+          <th>{t('Commandline')}
+            <More id='more-proxy-cli' name={t('Commandline')}>
+              {t('The command line to use to start a download with the manager. '
+                + 'Use %1 as placeholder for the url.')}
+            </More>
+          </th>
           <th>{t('Pipe')}
             <More id='more-proxy-pipe' name={t('Pipe')}>
               {t('Using a pipe is a direct and thus quicker way to forward downloads if the '

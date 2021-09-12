@@ -10,10 +10,30 @@ import settingsReducer from './reducers';
 import Settings from './Settings';
 import { IProxyConfig } from './types';
 
+function defaultConfig(): IProxyConfig {
+  return {
+    games: {
+      _: 'Vortex',
+    },
+    managers: {
+      Vortex: `"${process.execPath}" --download %1`,
+    },
+    pipes: {
+      Vortex: 'vortex_download',
+    },
+  };
+}
+
 async function onLoadOrInit(): Promise<IProxyConfig> {
   const configPath = path.join(util.getVortexPath('localAppData'), 'nxmproxy', 'config.toml');
-  const raw = await fs.readFileAsync(configPath, { encoding: 'utf8' });
-  return toml.parse(raw) as any;
+  try {
+    const raw = await fs.readFileAsync(configPath, { encoding: 'utf8' });
+    return toml.parse(raw) as any;
+  } catch (err) {
+    let config = defaultConfig();
+    await onSetConfig(config);
+    return config;
+  }
 }
 
 async function onSetConfig(newConfig: IProxyConfig): Promise<void> {
