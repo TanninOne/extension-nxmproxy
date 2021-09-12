@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "webpack": "node ./node_modules/webpack/bin/webpack --config webpack.config.js --progress --profile --color",
-    "bundle7z": "7z a -t7z nxmproxy-integration.7z .\\dist\\index.js .\\dist\\info.json",
+    "bundle7z": "7z a -t7z nxmproxy-integration.7z .\\dist\\index.js .\\dist\\info.json .\\dist\\nxmproxy.exe .\\dist\\stylesheet.scss",
     "build": "npm run webpack && copyfiles -f src/stylesheet.scss dist && extractInfo"
   },
   "author": "",

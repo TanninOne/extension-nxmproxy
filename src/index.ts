@@ -37,7 +37,9 @@ async function onLoadOrInit(): Promise<IProxyConfig> {
 }
 
 async function onSetConfig(newConfig: IProxyConfig): Promise<void> {
-  const configPath = path.join(util.getVortexPath('localAppData'), 'nxmproxy', 'config.toml');
+  const basePath = path.join(util.getVortexPath('localAppData'), 'nxmproxy');
+  const configPath = path.join(basePath, 'config.toml');
+  await fs.ensureDirWritableAsync(basePath);
   await fs.writeFileAsync(configPath, toml.stringify(newConfig as any), { encoding: 'utf8' });
 }
 
