@@ -108,6 +108,12 @@ function main(context: types.IExtensionContext) {
           }
         });
     })
+    .on('error', err => {
+      log('error', 'failed to open download pipe', err.message);
+      api.showErrorNotification('NXM Proxy connection failed, downloads won\'t work', err, {
+        allowReport: false,
+      })
+    })
     .listen('\\\\?\\pipe\\vortex_download');
   });
 
