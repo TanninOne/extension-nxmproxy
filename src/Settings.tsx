@@ -189,6 +189,7 @@ function ManagerList(props: IManagerListProps) {
         { Object.keys(managers ?? {}).map(managerId =>
           <ManagerListItem
             t={t}
+            key={managerId}
             name={managerId}
             exePath={managers[managerId]}
             pipe={pipes[managerId]}
@@ -242,11 +243,15 @@ function GameListItem(props: IGameListItemProps) {
   }, [game, editGame, editManager]);
 
   const setEditGameCB = React.useCallback((value: Option<string>) => {
-    setEditGame(value.value);
+    if (!!value) {
+      setEditGame(value.value);
+    }
   }, [setEditGame]);
 
   const setEditManagerCB = React.useCallback((value: Option<string>) => {
-    setEditManager(value.value);
+    if (!!value) {
+      setEditManager(value.value);
+    }
   }, [setEditManager]);
 
   const gameOptions = props.gameOptions
@@ -330,6 +335,7 @@ function GamesList(props: IGamesListProps) {
       { Object.keys(games ?? {}).sort(byGameId).map(gameId =>
         <GameListItem
           t={t}
+          key={gameId}
           game={gameId}
           gameOptions={gameOptions}
           manager={games[gameId]}
